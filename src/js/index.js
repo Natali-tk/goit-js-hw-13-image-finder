@@ -34,7 +34,7 @@ function fetchImages() {
       imagesApiService.incrementPage();
     // loadMoreBtn.enable();
     })
-    .catch(onFetchError);
+    .catch(onFetchError());
     
 }
 
