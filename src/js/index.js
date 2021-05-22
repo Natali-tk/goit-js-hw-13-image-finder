@@ -21,21 +21,33 @@ function onSearch(e) {
   e.preventDefault();
   const form = e.currentTarget;
   imagesApiService.query = form.elements.query.value;
-  
+  if (imagesApiService.query === '') {
+    return error({
+      text: 'Sorry,not found,please check your request!',
+      delay: 1500,
+      closerHover: true,
+    });
+  }
   imagesApiService.resetPage();
   clearImagesContainer();
   fetchImages();
 }
 function fetchImages() {
   // loadMoreBtn.disable();
-  imagesApiService.fetchImages()
+  return imagesApiService.fetchImages()
     .then(hits => {
-      renderImagesList(hits);
-      imagesApiService.incrementPage();
-    // loadMoreBtn.enable();
+     if (hits.length === 0) {
+        // loadMoreBtn.hide();
+        error({
+          text: 'No matches found!',
+          delay: 1500,
+          closerHover: true,
+        });
+        // loadMoreBtn.enable();
+     } else {
+        renderImagesList(hits);
+      }
     })
-    .catch(onFetchError());
-    
 }
 
 function renderImagesList(hits) {
@@ -48,11 +60,7 @@ function clearImagesContainer() {
     refs.imagesContainer.innerHTML = '';
 }
 
-function onFetchError() {
-  error({
-    text: 'Sory, not found, please check correction of your request!',
-  });
-}
+
 
 window.scrollTo({
   top: document.documentElement.scrollHeight,

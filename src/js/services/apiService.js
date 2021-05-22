@@ -16,9 +16,9 @@ export default class ImagesApiService {
       .get(url)
       .then(response => {
         this.incrementPage();
-
         return response.data.hits;
-      });
+      })
+      .catch(error => console.log(error));
   }
   incrementPage() {
     this.page += 1;
