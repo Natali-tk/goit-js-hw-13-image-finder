@@ -21,12 +21,12 @@ function onSearch(e) {
   e.preventDefault();
   const form = e.currentTarget;
   imagesApiService.query = form.elements.query.value;
-  console.log(form.elements.query.value);
- 
-    // loadMoreBtn.show();
-    imagesApiService.resetPage();
-    clearImagesContainer();
-    fetchImages();
+  if (imagesApiService.query === '') {
+    return onFetchError();
+  }
+  imagesApiService.resetPage();
+  clearImagesContainer();
+  fetchImages();
 }
 function fetchImages() {
   // loadMoreBtn.disable();
@@ -36,7 +36,8 @@ function fetchImages() {
       imagesApiService.incrementPage();
     // loadMoreBtn.enable();
     })
-    .catch(onFetchError());
+    .catch(onFetchError);
+    
 }
 
 function renderImagesList(hits) {
@@ -54,7 +55,6 @@ function onFetchError() {
     text: 'Sory, not found, please check correction of your request!',
   });
 }
-
 
 window.scrollTo({
   top: document.documentElement.scrollHeight,
