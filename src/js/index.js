@@ -21,9 +21,8 @@ function onSearch(e) {
   e.preventDefault();
   const form = e.currentTarget;
   imagesApiService.query = form.elements.query.value;
-  if (imagesApiService.query === '') {
-    return onFetchError();
-  }
+  console.log(form.elements.query.value);
+ 
     // loadMoreBtn.show();
     imagesApiService.resetPage();
     clearImagesContainer();
@@ -37,7 +36,7 @@ function fetchImages() {
       imagesApiService.incrementPage();
     // loadMoreBtn.enable();
     })
-    .catch(onFetchError(error));
+    .catch(onFetchError());
 }
 
 function renderImagesList(hits) {

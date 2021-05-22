@@ -1,4 +1,4 @@
-import '../sass/main.scss';
+
 const refs = getRefs();
 import getRefs from './get-refs';
 import * as basicLightbox from 'basiclightbox';
