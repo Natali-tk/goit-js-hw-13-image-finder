@@ -21,9 +21,7 @@ function onSearch(e) {
   e.preventDefault();
   const form = e.currentTarget;
   imagesApiService.query = form.elements.query.value;
-  if (imagesApiService.query === '') {
-    return onFetchError();
-  }
+  
   imagesApiService.resetPage();
   clearImagesContainer();
   fetchImages();
