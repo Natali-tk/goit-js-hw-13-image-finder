@@ -22,6 +22,7 @@ function onSearch(e) {
   const form = e.currentTarget;
   imagesApiService.query = form.elements.query.value;
   if (imagesApiService.query === '') {
+    clearImagesContainer();
     return error({
       text: 'Sorry,not found,please check your request!',
       delay: 1500,
