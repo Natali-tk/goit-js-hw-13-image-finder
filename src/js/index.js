@@ -28,10 +28,12 @@ function onSearch(e) {
       closerHover: true,
     });
   }
+
   imagesApiService.resetPage();
   clearImagesContainer();
   fetchImages();
 }
+
 function fetchImages() {
   // loadMoreBtn.disable();
   return imagesApiService.fetchImages()
