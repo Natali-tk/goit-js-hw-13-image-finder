@@ -1,4 +1,4 @@
-import '../sass/main.scss';
+
 import ImagesApiService from './services/apiService';
 import imagesListTpl from '../templates/images-list.hbs';
 import getRefs from './get-refs';
@@ -37,7 +37,7 @@ function fetchImages() {
       imagesApiService.incrementPage();
     // loadMoreBtn.enable();
     })
-    .catch(onFetchError);
+    .catch(onFetchError(error));
 }
 
 function renderImagesList(hits) {
