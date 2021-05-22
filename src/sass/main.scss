@@ -2,7 +2,7 @@
  * Главный файл стилей.
  * Все паршалы подключаются сюда.
  */
-
+@import url('./modal.scss');
 // Стили для файла с примером HTML-фрагмента
 * {
   box-sizing: border-box;
@@ -23,9 +23,23 @@ body {
 }
 img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
+
+input {
+  padding: 10px;
+  font-size: 20px;
+  border: 10px solid rgba(255, 255, 255, 0.5);
+  box-shadow: (0 2px 10px rgba(0, 0, 0, 0.25) inset, 0 2px 10px rgba(0, 0, 0, 0.25));
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  appearance: none;
+  outline: none;
+  color: #333;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -36,4 +50,41 @@ img {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+.stats-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button.is-hidden {
+  display: none;
+}
+
+.button > .spinner.is-hidden {
+  display: none;
+}
+
+.gallery__item {
+  position: relative;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+.gallery__image {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.gallery__image:hover {
+  transform: scale(1.03);
 }
