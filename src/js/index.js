@@ -18,7 +18,11 @@ const preloader = new Preloader(refs.preloader);
 refs.searchForm.addEventListener('submit', onSearch);
 // loadMoreBtn.refs.button.addEventListener('click', fetchImages);
 
-preloader.hide(); 
+document.addEventListener("DOMContentLoaded", onLoadedDocument);
+    function onLoadedDocument() {
+      preloader.hide();
+     }
+ 
 function onSearch(e) {
   e.preventDefault();
   

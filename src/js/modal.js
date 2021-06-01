@@ -19,13 +19,10 @@ function openModal(event) {
     `)
     instance.show();
     
-    if (!instance.element()) {
+    instance.element().isLoad= function () {
       preloader.hide();
-    };
-    if (!basicLightbox.visible()) {
-       preloader.hide();
-    };
     }
   }
+}
 
 
