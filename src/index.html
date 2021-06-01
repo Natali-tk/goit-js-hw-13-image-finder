@@ -10,11 +10,26 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
 
   </head>
-  <body>
+  <body class='dark-bg'>
+  <div id='page-preloader' class='preloader'>
+    <div class='loader'>
+      <div class='circle'></div>
+      <div class='circle'></div>
+      <div class='circle'></div>
+      <div class='shadow'></div>
+      <div class='shadow'></div>
+      <div class='shadow'></div>
+      <span class='preloader-text'>Loading</span>
+    </div>
+  </div>
+    
     <form class="search-form" id="search-form">
       <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
     </form>
-    <div class="images-list-root"></div>
+    
+    <div class="images-list-root">
+      
+    </div>
     
     <!-- <button type="button" class="btn btn-primary button" data-action="load-more">
       <span class="spinner-border spinner-border-sm spinner is-hidden" role="status" aria-hidden="true"></span>

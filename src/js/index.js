@@ -1,7 +1,8 @@
-import './intersection-oserver';
+
 import ImagesApiService from './services/apiService';
 import imagesListTpl from '../templates/images-list.hbs';
 import getRefs from './get-refs';
+import{ Preloader }  from './components/preloader';
 // import LoadMoreBtn from './components/load-more-btn';
 import { error } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
@@ -9,16 +10,18 @@ import '@pnotify/core/dist/BrightTheme.css';
 
 const refs = getRefs();
 const imagesApiService = new ImagesApiService();
+const preloader = new Preloader(refs.preloader);
 // const loadMoreBtn = new LoadMoreBtn({
 //   selector: '[data-action="load-more"]',
 //   hidden: true,
-// });
 
 refs.searchForm.addEventListener('submit', onSearch);
 // loadMoreBtn.refs.button.addEventListener('click', fetchImages);
 
+preloader.hide(); 
 function onSearch(e) {
   e.preventDefault();
+  
   const form = e.currentTarget;
   imagesApiService.query = form.elements.query.value;
   if (imagesApiService.query.trim() === '' ) {
@@ -29,17 +32,18 @@ function onSearch(e) {
       closerHover: true,
     });
   }
-
+  preloader.showLight();  
   imagesApiService.resetPage();
   clearImagesContainer();
   fetchImages();
 }
 
+
 function fetchImages() {
   // loadMoreBtn.disable();
   return imagesApiService.fetchImages()
     .then(hits => {
-     if (hits.length === 0) {
+      if (hits.length === 0) {
         // loadMoreBtn.hide();
         error({
           text: 'No matches found!',
@@ -47,10 +51,12 @@ function fetchImages() {
           closerHover: true,
         });
         // loadMoreBtn.enable();
-     } else {
+      } else {
         renderImagesList(hits);
       }
     })
+    .catch(error => console.log(error))
+    .finally(() => preloader.hide());
 }
 
 function renderImagesList(hits) {
@@ -72,7 +78,7 @@ window.scrollTo({
 
 const onEntry = entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting && imagesApiService.query !== '') {
+    if (entry.isIntersecting && imagesApiService.query !== '' && imagesApiService.page>1) {
       fetchImages()
     };
   });
@@ -80,7 +86,7 @@ const onEntry = entries => {
 
 
 const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '150px',
+  rootMargin: '200px',
 });
 observer.observe(refs.sentinel);
 
