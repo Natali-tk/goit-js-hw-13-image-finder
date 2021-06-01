@@ -15,11 +15,7 @@ export class Preloader {
   show() {
     this.body.classList.add('preloader-active');
     this.preloader.style.display = 'block';
-  }
-
-  showLight() {
     this.preloader.classList.add('light');
-    this.show();
   }
 
   hide() {

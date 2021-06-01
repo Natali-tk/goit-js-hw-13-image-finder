@@ -1,12 +1,13 @@
-
 import ImagesApiService from './services/apiService';
 import imagesListTpl from '../templates/images-list.hbs';
 import getRefs from './get-refs';
+
 import{ Preloader }  from './components/preloader';
 // import LoadMoreBtn from './components/load-more-btn';
 import { error } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
+import './modal';
 
 const refs = getRefs();
 const imagesApiService = new ImagesApiService();
@@ -14,14 +15,15 @@ const preloader = new Preloader(refs.preloader);
 // const loadMoreBtn = new LoadMoreBtn({
 //   selector: '[data-action="load-more"]',
 //   hidden: true,
-
+document.body.onload = function () {
+    setTimeout(function () {
+      preloader.hide();
+    },1000)
+}
 refs.searchForm.addEventListener('submit', onSearch);
 // loadMoreBtn.refs.button.addEventListener('click', fetchImages);
 
-document.addEventListener("DOMContentLoaded", onLoadedDocument);
-    function onLoadedDocument() {
-      preloader.hide();
-     }
+
  
 function onSearch(e) {
   e.preventDefault();
@@ -36,7 +38,7 @@ function onSearch(e) {
       closerHover: true,
     });
   }
-  preloader.showLight();  
+  preloader.show();  
   imagesApiService.resetPage();
   clearImagesContainer();
   fetchImages();
@@ -93,4 +95,8 @@ const observer = new IntersectionObserver(onEntry, {
   rootMargin: '200px',
 });
 observer.observe(refs.sentinel);
+
+
+
+
 
